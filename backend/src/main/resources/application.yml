@@ -1,0 +1,104 @@
+# Spring Boot Configuration
+
+server:
+  port: 8081
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+
+spring:
+  application:
+    name: AI-ChatBot
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/chatbot_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: ashutosh
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        enable_lazy_load_no_trans: false
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.chatbot: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# LLM API Configuration
+llm:
+  provider: groq
+  api:
+    key: ${LLM_API_KEY:your_groq_api_key_here}
+  groq:
+    model: llama-3.1-8b-instant
+    base-url: https://api.groq.com/openai/v1
+  openai:
+    model: gpt-4o-mini
+  gemini:
+    model: gemini-1.5-flash
+  max-tokens: 500
+  timeout: 15000
+
+# Development Profile
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/chatbot_db_dev?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+logging:
+  level:
+    root: DEBUG
+
+# Production Profile
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+  security:
+    require-ssl: true
+
+server:
+  error:
+    include-message: never
+    include-stacktrace: never
+
+logging:
+  level:
+    root: WARN
+    com.chatbot: INFO

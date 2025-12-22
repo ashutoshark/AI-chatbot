@@ -1,0 +1,30 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/chatbot_db?createDatabaseIfNotExist=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:ashutosh}
+    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.MySQL8Dialect}
+
+llm:
+  provider: groq
+  api:
+    key: ${LLM_API_KEY:your_groq_api_key_here}
+  groq:
+    model: llama-3.1-8b-instant
+    base-url: https://api.groq.com/openai/v1
+  max-tokens: 500
+  timeout: 15000
+
+chat:
+  max-message-length: 3000
+  max-history-messages: 15

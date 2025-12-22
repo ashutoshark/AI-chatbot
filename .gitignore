@@ -1,0 +1,35 @@
+# Build outputs
+backend/target/
+frontend/dist/
+frontend/build/
+
+# Dependencies
+node_modules/
+backend/.mvn/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Environment files
+.env
+.env.local
+.env.production.local
+backend/.env
+backend/src/main/resources/application-local.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temp files
+*.tmp
+*.swp
+*~

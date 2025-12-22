@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: chatbot-backend
+    runtime: java
+    buildCommand: cd backend && mvn clean package -DskipTests
+    startCommand: java -jar backend/target/backend-1.0.0.jar
+    envVars:
+      - key: LLM_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chatbot-db
+          property: connectionString
+    healthCheckPath: /api/chat
+
+databases:
+  - name: chatbot-db
+    databaseName: chatbot_db
+    user: chatbot_user
