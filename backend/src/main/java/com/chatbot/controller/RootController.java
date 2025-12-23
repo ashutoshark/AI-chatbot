@@ -26,11 +26,11 @@ class IndexController {
      * Redirect all non-API, non-file routes to index.html for React Router.
      * Excludes any path containing a dot (assets like .js, .css, .ico) to avoid forward loops.
      */
-    @GetMapping(value = {
+        @GetMapping(value = {
             "/",
-            "/{path:^(?!api$)(?!.*\\..*$).*$}",
-            "/{path:^(?!api$)(?!.*\\..*$).*$}/**"
-    })
+            "/{path:^(?!api$)(?!assets$)(?!static$)(?!webjars$)(?!favicon\\.ico$)(?!robots\\.txt$)[^\\.]*$}",
+            "/{path:^(?!api$)(?!assets$)(?!static$)(?!webjars$)(?!favicon\\.ico$)(?!robots\\.txt$)[^\\.]*$}/**"
+        })
     public String index() {
         return "forward:/index.html";
     }
