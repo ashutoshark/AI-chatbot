@@ -23,10 +23,14 @@ public class RootController {
 @Controller
 class IndexController {
     /**
-     * Redirect all non-API routes to index.html for React Router
-     * This allows the frontend to handle routing
+     * Redirect all non-API, non-file routes to index.html for React Router.
+     * Excludes any path containing a dot (assets like .js, .css, .ico) to avoid forward loops.
      */
-    @GetMapping(value = {"/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/**"})
+    @GetMapping(value = {
+            "/",
+            "/{path:^(?!api$)(?!.*\\..*$).*$}",
+            "/{path:^(?!api$)(?!.*\\..*$).*$}/**"
+    })
     public String index() {
         return "forward:/index.html";
     }
