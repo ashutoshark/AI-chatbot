@@ -9,6 +9,7 @@
  * - Sending new messages to the backend
  * - Displaying errors
  * - Starting new conversations
+ * - Session persistence (saves conversationId to localStorage)
  * 
  * Component Structure:
  * ChatContainer
@@ -17,12 +18,15 @@
  *   └── ChatInput (text input + buttons)
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MessageList from './MessageList';
 import ChatInput from './ChatInput';
 import { chatApi } from '../services/chatApi';
 import type { Message } from '../types/chat';
 import './ChatContainer.css';
+
+// Key for storing conversation ID in browser localStorage
+const STORAGE_KEY = 'techstyle_conversation_id';
 
 const ChatContainer: React.FC = () => {
   // ============================================
@@ -38,8 +42,57 @@ const ChatContainer: React.FC = () => {
   // True when waiting for AI response
   const [isLoading, setIsLoading] = useState(false);
   
+  // True when loading conversation history
+  const [isLoadingHistory, setIsLoadingHistory] = useState(true);
+  
   // Error message to display (null if no error)
   const [error, setError] = useState<string | null>(null);
+
+  // ============================================
+  // LOAD CONVERSATION HISTORY ON PAGE LOAD
+  // ============================================
+  
+  useEffect(() => {
+    const loadConversationHistory = async () => {
+      // Check if we have a saved conversation ID
+      const savedConversationId = localStorage.getItem(STORAGE_KEY);
+      
+      if (savedConversationId) {
+        try {
+          // Try to load messages from the saved conversation
+          const loadedMessages = await chatApi.getMessages(savedConversationId);
+          
+          if (loadedMessages && loadedMessages.length > 0) {
+            // Convert backend messages to frontend format
+            const formattedMessages: Message[] = loadedMessages.map((msg: any) => ({
+              id: msg.id,
+              text: msg.text,
+              sender: msg.sender.toLowerCase() as 'user' | 'ai',
+              timestamp: msg.timestamp || msg.createdAt,
+            }));
+            
+            setMessages(formattedMessages);
+            setConversationId(savedConversationId);
+          }
+        } catch (err) {
+          // Conversation might have been deleted, clear storage
+          console.log('Could not load previous conversation, starting fresh');
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      }
+      
+      setIsLoadingHistory(false);
+    };
+    
+    loadConversationHistory();
+  }, []);
+  
+  // Save conversation ID to localStorage whenever it changes
+  useEffect(() => {
+    if (conversationId) {
+      localStorage.setItem(STORAGE_KEY, conversationId);
+    }
+  }, [conversationId]);
 
   // ============================================
   // EVENT HANDLERS
@@ -108,6 +161,8 @@ const ChatContainer: React.FC = () => {
     setMessages([]);
     setConversationId(null);
     setError(null);
+    // Clear saved conversation from localStorage
+    localStorage.removeItem(STORAGE_KEY);
   };
 
   // ============================================
@@ -120,11 +175,11 @@ const ChatContainer: React.FC = () => {
       <div className="chat-header">
         <div className="header-content">
           {/* Robot Icon */}
-          <div className="header-icon">🤖</div>
+          <div className="header-icon">🛒</div>
           {/* Title and Subtitle */}
           <div>
-            <h1 className="chat-title">AI Chatbot Assistant</h1>
-            <p className="chat-subtitle">Powered by Groq AI - llama-3.1-8b-instant</p>
+            <h1 className="chat-title">TechStyle Support</h1>
+            <p className="chat-subtitle">Your e-commerce assistant • Ask about orders, shipping & more</p>
           </div>
         </div>
         {/* Online Status */}
@@ -143,13 +198,17 @@ const ChatContainer: React.FC = () => {
       )}
 
       {/* Message List Component */}
-      <MessageList messages={messages} isLoading={isLoading} />
+      <MessageList 
+        messages={messages} 
+        isLoading={isLoading} 
+        isLoadingHistory={isLoadingHistory}
+      />
       
       {/* Chat Input Component */}
       <ChatInput
         onSendMessage={handleSendMessage}
         onNewChat={handleNewChat}
-        disabled={isLoading}
+        disabled={isLoading || isLoadingHistory}
       />
     </div>
   );

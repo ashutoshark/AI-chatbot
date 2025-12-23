@@ -106,4 +106,43 @@ public class ChatController {
         conversationService.deleteConversation(id);
         return ResponseEntity.noContent().build();
     }
+    
+    /**
+     * Alternative endpoint matching spec exactly
+     * POST /chat/message - accepts { message: string, sessionId?: string }
+     * Returns { reply: string, sessionId: string }
+     */
+    @PostMapping("/chat/message")
+    public ResponseEntity<java.util.Map<String, String>> sendMessageAlt(@RequestBody java.util.Map<String, String> request) {
+        String message = request.get("message");
+        String sessionId = request.get("sessionId");
+        
+        // Validate message
+        if (message == null || message.isBlank()) {
+            java.util.Map<String, String> error = new java.util.HashMap<>();
+            error.put("error", "Message cannot be empty");
+            return ResponseEntity.badRequest().body(error);
+        }
+        
+        // Truncate if too long
+        if (message.length() > 3000) {
+            message = message.substring(0, 3000);
+        }
+        
+        // Get or create conversation
+        if (sessionId == null || sessionId.isBlank()) {
+            Conversation newConversation = conversationService.createConversation();
+            sessionId = newConversation.getId();
+        }
+        
+        // Send message and get AI response
+        Message aiMessage = conversationService.sendMessage(sessionId, message);
+        
+        // Build response matching spec
+        java.util.Map<String, String> response = new java.util.HashMap<>();
+        response.put("reply", aiMessage.getText());
+        response.put("sessionId", sessionId);
+        
+        return ResponseEntity.ok(response);
+    }
 }

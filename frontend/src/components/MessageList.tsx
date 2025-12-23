@@ -7,11 +7,13 @@
  * It also shows:
  * - Empty state when no messages exist
  * - Typing indicator when AI is generating a response
+ * - Loading state when fetching conversation history
  * - Auto-scrolls to the latest message
  * 
  * Props:
  * - messages: Array of all messages to display
  * - isLoading: Whether the AI is currently generating a response
+ * - isLoadingHistory: Whether we're loading previous conversation
  */
 
 import React, { useEffect, useRef } from 'react';
@@ -23,9 +25,10 @@ import './MessageList.css';
 interface MessageListProps {
   messages: Message[];
   isLoading: boolean;
+  isLoadingHistory?: boolean;
 }
 
-const MessageList: React.FC<MessageListProps> = ({ messages, isLoading }) => {
+const MessageList: React.FC<MessageListProps> = ({ messages, isLoading, isLoadingHistory = false }) => {
   // Reference to the bottom of the message list (for auto-scrolling)
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -41,20 +44,35 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isLoading }) => {
     scrollToBottom();
   }, [messages, isLoading]);
 
+  // Show loading state when fetching conversation history
+  if (isLoadingHistory) {
+    return (
+      <div className="message-list">
+        <div className="empty-state">
+          <div className="empty-state-icon loading-spin">⏳</div>
+          <div className="empty-state-text">Loading conversation...</div>
+          <div className="empty-state-subtext">
+            Please wait while we fetch your previous messages
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Show empty state when there are no messages
   if (messages.length === 0 && !isLoading) {
     return (
       <div className="message-list">
         <div className="empty-state">
-          <div className="empty-state-icon">💬</div>
-          <div className="empty-state-text">Start a conversation</div>
+          <div className="empty-state-icon">🛍️</div>
+          <div className="empty-state-text">Welcome to TechStyle Support!</div>
           <div className="empty-state-subtext">
-            Send a message to begin chatting with the AI assistant
+            Ask me about shipping, returns, orders, or anything else!
           </div>
           <div className="empty-state-suggestions">
-            <span className="suggestion">👋 Say hello</span>
-            <span className="suggestion">❓ Ask a question</span>
-            <span className="suggestion">💡 Get help</span>
+            <span className="suggestion">📦 Shipping info</span>
+            <span className="suggestion">↩️ Return policy</span>
+            <span className="suggestion">⏰ Support hours</span>
           </div>
         </div>
       </div>

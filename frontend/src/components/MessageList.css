@@ -60,6 +60,16 @@
   }
 }
 
+/* Loading spinner animation */
+.loading-spin {
+  animation: spin 1.5s linear infinite !important;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* Empty state text */
 .empty-state-text {
   font-size: 24px;
