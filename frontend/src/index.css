@@ -1,19 +1,49 @@
+/**
+ * ============================================
+ * GLOBAL STYLES
+ * ============================================
+ * 
+ * Base styles applied to the entire application.
+ * Sets up the beautiful gradient background and font settings.
+ */
+
+/* Reset default browser styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body styles with gradient background */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  /* Beautiful animated gradient background */
+  background: linear-gradient(-45deg, #667eea, #764ba2, #6366f1, #8b5cf6);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  
   min-height: 100vh;
 }
 
+/* Gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Root container - centers the chat */
 #root {
   min-height: 100vh;
   display: flex;
@@ -22,8 +52,14 @@ body {
   padding: 20px;
 }
 
+/* Remove padding on mobile for full-screen chat */
 @media (max-width: 768px) {
   #root {
     padding: 0;
+  }
+  
+  body {
+    background: #6366f1; /* Solid color on mobile for performance */
+    animation: none;
   }
 }
