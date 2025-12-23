@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <!-- Robot Head -->
+  <rect x="20" y="25" width="60" height="50" rx="12" fill="url(#gradient)"/>
+  <!-- Antenna -->
+  <circle cx="50" cy="15" r="6" fill="url(#gradient)"/>
+  <rect x="48" y="15" width="4" height="12" fill="url(#gradient)"/>
+  <!-- Eyes -->
+  <circle cx="35" cy="45" r="8" fill="white"/>
+  <circle cx="65" cy="45" r="8" fill="white"/>
+  <circle cx="37" cy="45" r="4" fill="#1e1b4b"/>
+  <circle cx="67" cy="45" r="4" fill="#1e1b4b"/>
+  <!-- Mouth/Speaker -->
+  <rect x="35" y="58" width="30" height="8" rx="4" fill="white" opacity="0.9"/>
+  <!-- Chat Bubble -->
+  <path d="M75 75 L85 85 L85 75 L90 75 C93 75 95 73 95 70 L95 60 C95 57 93 55 90 55 L70 55 C67 55 65 57 65 60 L65 70 C65 73 67 75 70 75 Z" fill="#22c55e"/>
+  <circle cx="73" cy="65" r="2" fill="white"/>
+  <circle cx="80" cy="65" r="2" fill="white"/>
+  <circle cx="87" cy="65" r="2" fill="white"/>
+</svg>
