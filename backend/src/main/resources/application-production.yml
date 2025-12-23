@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:${DATABASE_URL:mysql://localhost:3306/chatbot_db?createDatabaseIfNotExist=true}
-    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
+    url: jdbc:${DATABASE_URL}
+    driver-class-name: ${DB_DRIVER:org.postgresql.Driver}
   jpa:
     hibernate:
       ddl-auto: update
