@@ -145,10 +145,12 @@ public class LlmService {
             System.err.println("LLM API authentication failed - check API key");
             return "I'm having trouble connecting to the AI service. Please contact support.";
         } catch (org.springframework.web.reactive.function.client.WebClientRequestException e) {
+            // Check if it's a timeout-related error
+            if (e.getCause() != null && e.getCause().getClass().getName().contains("Timeout")) {
+                return "The AI service is taking too long to respond. Please try again.";
+            }
             System.err.println("LLM API connection error: " + e.getMessage());
             return "I'm having trouble reaching the AI service. Please check your connection and try again.";
-        } catch (java.util.concurrent.TimeoutException e) {
-            return "The AI service is taking too long to respond. Please try again.";
         } catch (Exception e) {
             System.err.println("LLM error: " + e.getClass().getSimpleName() + " - " + e.getMessage());
             return "I apologize, but I'm having trouble processing your request. Please try again later.";
