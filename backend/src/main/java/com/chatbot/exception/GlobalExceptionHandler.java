@@ -11,7 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Global exception handler for all API endpoints
+ * Global exception handler for all REST endpoints.
+ * Catches exceptions and returns consistent JSON error responses.
+ * 
+ * Response format: { "error": "Error message here" }
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

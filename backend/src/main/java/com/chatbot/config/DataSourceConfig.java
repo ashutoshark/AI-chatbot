@@ -8,6 +8,11 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.net.URI;
 
+/**
+ * Database configuration for production environment (Render.com).
+ * Parses DATABASE_URL environment variable and creates HikariCP connection pool.
+ * Only active when spring.profiles.active=production
+ */
 @Configuration
 @Profile("production")
 public class DataSourceConfig {

@@ -10,9 +10,16 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import java.io.IOException;
 
+/**
+ * Web Configuration for CORS and static file serving.
+ * - Enables CORS for all origins (development/production flexibility)
+ * - Serves React frontend from static folder
+ * - Handles SPA routing by falling back to index.html
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    /** Allow cross-origin requests from any domain */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -21,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*");
     }
 
+    /** Serve React frontend and handle SPA client-side routing */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Serve static files and fallback to index.html for SPA routing

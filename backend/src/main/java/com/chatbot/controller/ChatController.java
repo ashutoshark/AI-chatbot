@@ -15,7 +15,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * REST Controller for chat API endpoints
+ * REST Controller for Chat API.
+ * 
+ * Endpoints:
+ * - POST /api/chat           - Send message and get AI response
+ * - POST /api/chat/message   - Alternative endpoint (spec-compliant)
+ * - POST /api/conversations  - Create new conversation
+ * - GET  /api/conversations/{id}          - Get conversation details
+ * - GET  /api/conversations/{id}/messages - Get all messages
+ * - DELETE /api/conversations/{id}        - Delete conversation
  */
 @RestController
 @RequestMapping("/api")

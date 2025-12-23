@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Repository for Message entity
+ * JPA Repository for Message entity.
+ * Provides methods for querying messages by conversation.
  */
 @Repository
 public interface MessageRepository extends JpaRepository<Message, String> {

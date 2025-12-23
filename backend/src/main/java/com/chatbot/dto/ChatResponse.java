@@ -3,11 +3,12 @@ package com.chatbot.dto;
 import java.time.LocalDateTime;
 
 /**
- * Response DTO for chat endpoint
+ * Response DTO for POST /api/chat endpoint.
+ * Contains AI's response and conversation metadata.
  */
 public class ChatResponse {
     
-    private String conversationId;
+    private String conversationId;  // Use this for subsequent messages
     private String messageId;
     private String message;
     private String sender;

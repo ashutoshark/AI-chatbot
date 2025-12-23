@@ -5,7 +5,8 @@ import com.chatbot.entity.MessageSender;
 import java.time.LocalDateTime;
 
 /**
- * Response DTO for message history
+ * Response DTO for GET /api/conversations/{id}/messages.
+ * Used when loading conversation history.
  */
 public class MessageResponse {
     

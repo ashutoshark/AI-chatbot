@@ -4,10 +4,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 /**
- * Request DTO for chat endpoint
+ * Request DTO for POST /api/chat endpoint.
+ * Contains user's message and optional conversation ID.
  */
 public class ChatRequest {
     
+    // Optional - null for first message, set for continuing conversation
     private String conversationId;
     
     @NotBlank(message = "Message cannot be blank")

@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Repository for Conversation entity
+ * JPA Repository for Conversation entity.
+ * Spring Data JPA auto-generates implementations for these methods.
  */
 @Repository
 public interface ConversationRepository extends JpaRepository<Conversation, String> {

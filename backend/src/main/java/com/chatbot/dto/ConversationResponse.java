@@ -3,7 +3,8 @@ package com.chatbot.dto;
 import java.time.LocalDateTime;
 
 /**
- * Response DTO for conversation details
+ * Response DTO for conversation endpoints.
+ * Contains conversation metadata (no messages).
  */
 public class ConversationResponse {
     
