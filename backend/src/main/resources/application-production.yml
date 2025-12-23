@@ -7,9 +7,15 @@ spring:
       maximum-pool-size: 5
       minimum-idle: 1
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 llm:
   provider: groq
