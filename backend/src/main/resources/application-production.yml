@@ -1,5 +1,8 @@
 server:
   port: ${PORT:8081}
+  error:
+    whitelabel:
+      enabled: false
 
 spring:
   datasource:
@@ -13,6 +16,9 @@ spring:
     properties:
       hibernate:
         dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.MySQL8Dialect}
+  web:
+    resources:
+      static-locations: classpath:/static/
 
 llm:
   provider: groq
