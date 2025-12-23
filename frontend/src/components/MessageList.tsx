@@ -65,7 +65,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isLoading, isLoadin
       <div className="message-list">
         <div className="empty-state">
           <div className="empty-state-icon">🛍️</div>
-          <div className="empty-state-text">Welcome to TechStyle Support!</div>
+          <div className="empty-state-text">Welcome to ShopEase Support!</div>
           <div className="empty-state-subtext">
             Ask me about shipping, returns, orders, or anything else!
           </div>

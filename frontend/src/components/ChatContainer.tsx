@@ -26,7 +26,7 @@ import type { Message } from '../types/chat';
 import './ChatContainer.css';
 
 // Key for storing conversation ID in browser localStorage
-const STORAGE_KEY = 'techstyle_conversation_id';
+const STORAGE_KEY = 'shopease_conversation_id';
 
 const ChatContainer: React.FC = () => {
   // ============================================
@@ -178,7 +178,7 @@ const ChatContainer: React.FC = () => {
           <div className="header-icon">🛒</div>
           {/* Title and Subtitle */}
           <div>
-            <h1 className="chat-title">TechStyle Support</h1>
+            <h1 className="chat-title">ShopEase Support</h1>
             <p className="chat-subtitle">Your e-commerce assistant • Ask about orders, shipping & more</p>
           </div>
         </div>
