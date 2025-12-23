@@ -1,6 +1,5 @@
 package com.chatbot.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -22,31 +21,22 @@ public class DataSourceConfig {
         }
 
         try {
-            // Parse the Render PostgreSQL URL
-            // Format: postgresql://user:password@host:port/database
             URI dbUri = new URI(databaseUrl);
+            String[] userInfo = dbUri.getUserInfo().split(":");
             
-            String username = dbUri.getUserInfo().split(":")[0];
-            String password = dbUri.getUserInfo().split(":")[1];
-            String host = dbUri.getHost();
-            int port = dbUri.getPort() != -1 ? dbUri.getPort() : 5432;
-            String database = dbUri.getPath().substring(1);
-            
-            // Build JDBC URL without credentials
             String jdbcUrl = String.format(
-                "jdbc:postgresql://%s:%d/%s?sslmode=require",
-                host, port, database
+                "jdbc:postgresql://%s:%d%s?sslmode=require",
+                dbUri.getHost(),
+                dbUri.getPort() != -1 ? dbUri.getPort() : 5432,
+                dbUri.getPath()
             );
             
             HikariConfig config = new HikariConfig();
             config.setJdbcUrl(jdbcUrl);
-            config.setUsername(username);
-            config.setPassword(password);
-            config.setMaximumPoolSize(10);
-            config.setMinimumIdle(2);
-            config.setConnectionTimeout(30000);
-            config.setIdleTimeout(600000);
-            config.setMaxLifetime(1800000);
+            config.setUsername(userInfo[0]);
+            config.setPassword(userInfo[1]);
+            config.setMaximumPoolSize(5);
+            config.setMinimumIdle(1);
             
             return new HikariDataSource(config);
         } catch (Exception e) {
