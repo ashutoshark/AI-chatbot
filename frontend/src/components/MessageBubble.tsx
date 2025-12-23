@@ -35,20 +35,24 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
   };
 
   return (
-    // The class changes based on sender: "message-bubble user" or "message-bubble ai"
-    <div className={`message-bubble ${message.sender}`}>
-      {/* Sender label */}
-      <div className="message-sender">
-        {message.sender === 'user' ? '👤 You' : '🤖 AI'}
+    // Message row - controls alignment
+    <div className={`message-row ${message.sender}`}>
+      {/* The bubble itself */}
+      <div className={`message-bubble ${message.sender}`}>
+        {/* Sender label with icon */}
+        <div className="message-sender">
+          <span className="sender-icon">{message.sender === 'user' ? '👤' : '🤖'}</span>
+          <span>{message.sender === 'user' ? 'You' : 'AI'}</span>
+        </div>
+        
+        {/* Message text */}
+        <div className="message-text">{message.text}</div>
+        
+        {/* Timestamp */}
+        {message.timestamp && (
+          <div className="message-time">{formatTime(message.timestamp)}</div>
+        )}
       </div>
-      
-      {/* Message text */}
-      <div className="message-text">{message.text}</div>
-      
-      {/* Timestamp (only shown if available) */}
-      {message.timestamp && (
-        <div className="message-time">{formatTime(message.timestamp)}</div>
-      )}
     </div>
   );
 };

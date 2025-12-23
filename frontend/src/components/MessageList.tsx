@@ -71,11 +71,16 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isLoading }) => {
       {/* Show typing indicator while waiting for AI response */}
       {isLoading && (
         <div className="typing-indicator">
-          <span className="typing-text">AI is typing</span>
-          <div className="typing-dots">
-            <div className="typing-dot"></div>
-            <div className="typing-dot"></div>
-            <div className="typing-dot"></div>
+          <div className="typing-bubble">
+            <div className="typing-label">
+              <span>🤖</span>
+              <span>AI</span>
+            </div>
+            <div className="typing-dots">
+              <div className="typing-dot"></div>
+              <div className="typing-dot"></div>
+              <div className="typing-dot"></div>
+            </div>
           </div>
         </div>
       )}

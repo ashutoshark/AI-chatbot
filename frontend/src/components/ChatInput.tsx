@@ -72,46 +72,54 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, onNewChat, disable
 
   return (
     <div className="chat-input-container">
-      <div className="chat-input-wrapper">
+      {/* Input wrapper with glow effect */}
+      <div className="input-wrapper">
         {/* Text input area */}
         <textarea
           className="chat-input"
-          placeholder="Type your message... (Shift + Enter for new line)"
+          placeholder="Type your message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
           disabled={disabled}
           rows={1}
-          maxLength={maxLength + 100}  // Allow slight overflow for better UX
+          maxLength={maxLength + 100}
         />
         
-        {/* Bottom bar with character count and buttons */}
-        <div className="input-actions">
-          <span className={getCharCountClass()}>
-            {message.length} / {maxLength}
-          </span>
-          
-          <div className="action-buttons">
-            {/* New Chat Button */}
-            <button
-              className="btn btn-secondary"
-              onClick={onNewChat}
-              disabled={disabled}
-              title="Start new conversation"
-            >
-              🔄 New Chat
-            </button>
-            
-            {/* Send Button */}
-            <button
-              className="btn btn-primary"
-              onClick={handleSend}
-              disabled={disabled || !message.trim() || message.length > maxLength}
-            >
-              {disabled ? '⏳ Sending...' : '📤 Send'}
-            </button>
+        {/* Inline typing dots (shown when loading) */}
+        {disabled && (
+          <div className="inline-typing">
+            <div className="inline-typing-dot"></div>
+            <div className="inline-typing-dot"></div>
+            <div className="inline-typing-dot"></div>
           </div>
-        </div>
+        )}
+        
+        {/* Send Button */}
+        <button
+          className="btn-send"
+          onClick={handleSend}
+          disabled={disabled || !message.trim() || message.length > maxLength}
+        >
+          <span className="send-icon">✈️</span>
+          <span>Send</span>
+        </button>
+      </div>
+      
+      {/* Footer with character count */}
+      <div className="input-footer">
+        <span className={getCharCountClass()}>
+          {message.length} / {maxLength}
+        </span>
+        
+        {/* New Chat Button */}
+        <button
+          className="btn-new-chat"
+          onClick={onNewChat}
+          disabled={disabled}
+        >
+          🔄 New Chat
+        </button>
       </div>
     </div>
   );

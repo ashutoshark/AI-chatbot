@@ -1,78 +1,79 @@
 /**
  * ============================================
- * CHAT CONTAINER STYLES
+ * CHAT CONTAINER STYLES - Dark Space Theme
  * ============================================
- * 
- * This file contains all the styles for the main chat container.
- * We use CSS variables and modern CSS features for a beautiful design.
  */
 
-/* Main container - holds the entire chat interface */
+/* Main container with glass effect */
 .chat-container {
+  width: 100%;
+  max-width: 900px;
+  height: 85vh;
+  max-height: 750px;
+  
+  /* Glassmorphism effect */
+  background: rgba(15, 15, 25, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  
+  /* Glowing border */
+  border: 1px solid rgba(100, 120, 255, 0.3);
+  box-shadow: 
+    0 0 40px rgba(100, 120, 255, 0.15),
+    0 0 80px rgba(100, 120, 255, 0.1),
+    inset 0 0 60px rgba(0, 0, 0, 0.3);
+  
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  max-width: 900px;
-  margin: 0 auto;
-  background: #ffffff;
-  border-radius: 24px;
-  box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
   overflow: hidden;
+  position: relative;
 }
 
-/* Header section with gradient background */
+/* Header section */
 .chat-header {
-  padding: 24px 28px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-  color: white;
+  padding: 20px 28px;
+  background: rgba(20, 20, 35, 0.6);
+  border-bottom: 1px solid rgba(100, 120, 255, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  overflow: hidden;
 }
 
-/* Decorative background pattern */
-.chat-header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-
+/* Header content wrapper */
 .header-content {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 1;
+  align-items: center;
+  gap: 14px;
 }
 
-.chat-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin: 0;
+/* Robot icon container */
+.header-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
 }
 
-.header-icon {
-  font-size: 32px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-.chat-subtitle {
-  font-size: 14px;
-  opacity: 0.9;
+/* Title section */
+.chat-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
   margin: 0;
-  font-weight: 400;
+}
+
+/* Subtitle with model info */
+.chat-subtitle {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 4px 0 0 0;
 }
 
 /* Online status indicator */
@@ -80,90 +81,109 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 20px;
-  z-index: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #10b981;
 }
 
-/* Green pulsing dot */
+/* Pulsing status dot */
 .status-dot {
   width: 10px;
   height: 10px;
+  background: #10b981;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
-  animation: pulse 2s infinite;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
 }
 
 @keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
   }
-  50% {
-    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  50% { 
+    opacity: 0.7; 
+    transform: scale(0.9);
   }
 }
 
-/* Error message banner */
+/* Message area */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 0;
+}
+
+/* Custom scrollbar */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.4);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.6);
+}
+
+/* Error message */
 .error-message {
-  padding: 16px 20px;
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-  color: #991b1b;
-  text-align: center;
-  border-left: 4px solid #ef4444;
-  margin: 16px;
+  margin: 20px;
+  padding: 14px 18px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
   border-radius: 12px;
+  color: #fca5a5;
+  font-size: 0.95rem;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  font-weight: 500;
-  animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .error-icon {
-  font-size: 20px;
+  font-size: 1.1rem;
 }
 
-/* Responsive design for mobile devices */
+/* Responsive design */
 @media (max-width: 768px) {
   .chat-container {
-    max-width: 100%;
     height: 100vh;
+    max-height: 100vh;
     border-radius: 0;
-    box-shadow: none;
+    border: none;
   }
-
+  
   .chat-header {
-    padding: 18px;
-    border-radius: 0;
+    padding: 16px 18px;
   }
-
-  .chat-title {
+  
+  .header-icon {
+    width: 40px;
+    height: 40px;
     font-size: 20px;
   }
-
-  .header-icon {
-    font-size: 26px;
+  
+  .chat-title {
+    font-size: 1.2rem;
   }
-
+  
+  .chat-subtitle {
+    font-size: 0.75rem;
+  }
+  
   .status-indicator {
     padding: 6px 12px;
-    font-size: 12px;
+    font-size: 0.8rem;
   }
 }

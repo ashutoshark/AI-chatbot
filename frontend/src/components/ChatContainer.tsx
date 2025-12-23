@@ -119,12 +119,15 @@ const ChatContainer: React.FC = () => {
       {/* Header Section */}
       <div className="chat-header">
         <div className="header-content">
-          <h1 className="chat-title">
-            <span className="header-icon">🤖</span>
-            AI Chatbot Assistant
-          </h1>
-          <p className="chat-subtitle">Powered by Groq AI • llama-3.1-8b-instant</p>
+          {/* Robot Icon */}
+          <div className="header-icon">🤖</div>
+          {/* Title and Subtitle */}
+          <div>
+            <h1 className="chat-title">AI Chatbot Assistant</h1>
+            <p className="chat-subtitle">Powered by Groq AI - llama-3.1-8b-instant</p>
+          </div>
         </div>
+        {/* Online Status */}
         <div className="status-indicator">
           <span className="status-dot"></span>
           <span>Online</span>

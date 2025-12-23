@@ -1,83 +1,107 @@
 /**
  * ============================================
- * MESSAGE BUBBLE STYLES
+ * MESSAGE BUBBLE STYLES - Dark Theme
  * ============================================
- * 
- * Different styles for user and AI messages:
- * - User: Right-aligned, purple gradient background
- * - AI: Left-aligned, light gray background
  */
 
-/* Base message bubble style */
+/* Message row container */
+.message-row {
+  display: flex;
+  padding: 8px 24px;
+  gap: 12px;
+}
+
+.message-row.user {
+  flex-direction: row-reverse;
+}
+
+.message-row.ai {
+  flex-direction: row;
+}
+
+/* Base message bubble */
 .message-bubble {
-  max-width: 75%;
+  max-width: 70%;
   padding: 14px 18px;
-  border-radius: 20px;
-  margin-bottom: 12px;
+  border-radius: 18px;
   word-wrap: break-word;
-  animation: fadeIn 0.3s ease-out;
+  animation: slideIn 0.3s ease-out;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* User message - right side with purple gradient */
+/* User message - right side with gradient */
 .message-bubble.user {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
   color: white;
-  align-self: flex-end;
   border-bottom-right-radius: 6px;
-  margin-left: auto;
+  box-shadow: 
+    0 4px 15px rgba(99, 102, 241, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* AI message - left side with light background */
+/* AI message - left side with glass effect */
 .message-bubble.ai {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  color: #1e293b;
-  align-self: flex-start;
+  background: rgba(30, 35, 55, 0.8);
+  color: #e2e8f0;
+  border: 1px solid rgba(100, 120, 255, 0.2);
   border-bottom-left-radius: 6px;
-  border: 1px solid #e2e8f0;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Sender label (You / AI) */
+/* Sender label container */
 .message-sender {
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 6px;
-  opacity: 0.85;
-  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+
+/* Sender icons */
+.sender-icon {
+  font-size: 16px;
 }
 
 .message-bubble.user .message-sender {
   color: rgba(255, 255, 255, 0.9);
+  justify-content: flex-end;
 }
 
 .message-bubble.ai .message-sender {
-  color: #6366f1;
+  color: #a78bfa;
 }
 
 /* Message text content */
 .message-text {
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.65;
   white-space: pre-wrap;
 }
 
 /* Timestamp */
 .message-time {
   font-size: 11px;
-  margin-top: 8px;
-  opacity: 0.6;
+  margin-top: 10px;
+  opacity: 0.5;
 }
 
 .message-bubble.user .message-time {
   text-align: right;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Entrance animation */
-@keyframes fadeIn {
+.message-bubble.ai .message-time {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Slide in animation */
+@keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.95);
+    transform: translateY(15px) scale(0.95);
   }
   to {
     opacity: 1;
@@ -85,9 +109,37 @@
   }
 }
 
-/* Hover effect for messages */
+/* Hover effect */
 .message-bubble:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
   transition: all 0.2s ease;
+}
+
+.message-bubble.user:hover {
+  box-shadow: 
+    0 6px 20px rgba(99, 102, 241, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.message-bubble.ai:hover {
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-color: rgba(100, 120, 255, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .message-row {
+    padding: 6px 16px;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+    padding: 12px 14px;
+  }
+  
+  .message-text {
+    font-size: 14px;
+  }
 }
