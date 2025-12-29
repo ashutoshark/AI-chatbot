@@ -21,6 +21,18 @@ A simple AI chatbot built with **Spring Boot** and **React**, powered by **Groq 
 
 ---
 
+## 📸 Screenshots
+
+### Welcome Screen
+![Welcome Screen](screenshots/welcome-screen.png)
+*ShopEase Support chatbot welcome interface with quick action buttons for common queries*
+
+### Chat Conversation
+![Chat Conversation](screenshots/chat-conversation.png)
+*AI-powered conversation showing user messages and intelligent bot responses*
+
+---
+
 ## 🏗️ Architecture
 
 ```
